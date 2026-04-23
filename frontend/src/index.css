@@ -1,0 +1,110 @@
+:root {
+  --brown: #6f4e37;
+  --brown-light: #a0785a;
+  --brown-dark: #4a3423;
+  --cream: #fdf6ec;
+  --cream-dark: #f5e6ce;
+  --white: #ffffff;
+  --gray: #666;
+  --gray-light: #999;
+  --red: #d9534f;
+  --green: #5cb85c;
+  --gold: #f0ad4e;
+
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  line-height: 1.5;
+  color: #333;
+  background: var(--cream);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+}
+
+#root {
+  max-width: 960px;
+  margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: opacity 0.2s;
+}
+
+button:hover {
+  opacity: 0.85;
+}
+
+input {
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 14px;
+  outline: none;
+}
+
+input:focus {
+  border-color: var(--brown);
+}
+
+.btn-primary {
+  background: var(--brown);
+  color: var(--white);
+}
+
+.btn-secondary {
+  background: var(--cream-dark);
+  color: var(--brown-dark);
+}
+
+.btn-danger {
+  background: var(--red);
+  color: var(--white);
+}
+
+.btn-success {
+  background: var(--green);
+  color: var(--white);
+}
+
+.message {
+  padding: 10px 16px;
+  border-radius: 6px;
+  margin: 10px 0;
+  font-size: 14px;
+}
+
+.message.success {
+  background: #dff0d8;
+  color: #3c763d;
+}
+
+.message.error {
+  background: #f2dede;
+  color: #a94442;
+}
+
+.page {
+  padding: 20px;
+  flex: 1;
+}
+
+.page h2 {
+  color: var(--brown-dark);
+  margin-bottom: 20px;
+  font-size: 24px;
+}

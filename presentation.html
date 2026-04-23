@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Campus Cafe - Final Project Presentation</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --blue-dark: #1a365d;
+    --blue: #2b6cb0;
+    --blue-mid: #3182ce;
+    --blue-light: #ebf4ff;
+    --blue-accent: #4299e1;
+    --white: #ffffff;
+    --gray-50: #f7fafc;
+    --gray-100: #edf2f7;
+    --gray-200: #e2e8f0;
+    --gray-500: #718096;
+    --gray-700: #4a5568;
+    --gray-900: #1a202c;
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--gray-100);
+    color: var(--gray-900);
+  }
+
+  .slide {
+    width: 1280px;
+    height: 720px;
+    margin: 40px auto;
+    background: var(--white);
+    border-radius: 12px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    overflow: hidden;
+    position: relative;
+    page-break-after: always;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Slide header bar */
+  .slide-header {
+    background: linear-gradient(135deg, var(--blue-dark), var(--blue));
+    color: var(--white);
+    padding: 28px 60px;
+    flex-shrink: 0;
+  }
+  .slide-header h2 {
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+  }
+  .slide-header .subtitle {
+    font-size: 15px;
+    font-weight: 400;
+    opacity: 0.8;
+    margin-top: 4px;
+  }
+
+  .slide-body {
+    flex: 1;
+    padding: 40px 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  /* Title slide */
+  .title-slide {
+    background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue) 60%, var(--blue-accent) 100%);
+    color: var(--white);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  .title-slide h1 {
+    font-size: 64px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    margin-bottom: 12px;
+  }
+  .title-slide .tagline {
+    font-size: 22px;
+    font-weight: 300;
+    opacity: 0.9;
+    margin-bottom: 48px;
+  }
+  .title-slide .meta {
+    font-size: 16px;
+    font-weight: 400;
+    opacity: 0.75;
+    line-height: 1.8;
+  }
+  .title-slide .divider {
+    width: 80px;
+    height: 3px;
+    background: rgba(255,255,255,0.4);
+    margin: 24px auto;
+  }
+
+  /* Section divider slide */
+  .section-slide {
+    background: var(--blue-dark);
+    color: var(--white);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  .section-slide .section-number {
+    font-size: 18px;
+    font-weight: 600;
+    opacity: 0.5;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    margin-bottom: 16px;
+  }
+  .section-slide h2 {
+    font-size: 48px;
+    font-weight: 700;
+  }
+  .section-slide p {
+    font-size: 18px;
+    font-weight: 300;
+    opacity: 0.7;
+    margin-top: 12px;
+  }
+
+  /* Content helpers */
+  .columns { display: flex; gap: 40px; flex: 1; }
+  .col { flex: 1; }
+
+  .bullet-list {
+    list-style: none;
+    padding: 0;
+  }
+  .bullet-list li {
+    padding: 10px 0 10px 28px;
+    position: relative;
+    font-size: 17px;
+    line-height: 1.5;
+    color: var(--gray-700);
+  }
+  .bullet-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 18px;
+    width: 10px;
+    height: 10px;
+    background: var(--blue-accent);
+    border-radius: 50%;
+  }
+  .bullet-list li strong {
+    color: var(--gray-900);
+  }
+
+  /* Code blocks */
+  pre {
+    background: var(--gray-50);
+    border: 1px solid var(--gray-200);
+    border-radius: 8px;
+    padding: 18px 22px;
+    font-family: 'Fira Code', monospace;
+    font-size: 13px;
+    line-height: 1.65;
+    overflow-x: auto;
+    color: var(--gray-900);
+  }
+  pre .kw { color: #7c3aed; font-weight: 500; }
+  pre .fn { color: #2563eb; }
+  pre .str { color: #059669; }
+  pre .cmt { color: #9ca3af; font-style: italic; }
+  pre .num { color: #d97706; }
+
+  .code-label {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--blue);
+    margin-bottom: 8px;
+  }
+
+  /* Info cards */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  .card-grid.three { grid-template-columns: repeat(3, 1fr); }
+
+  .info-card {
+    background: var(--blue-light);
+    border-radius: 10px;
+    padding: 22px 24px;
+    border-left: 4px solid var(--blue);
+  }
+  .info-card h4 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--blue-dark);
+    margin-bottom: 8px;
+  }
+  .info-card p, .info-card ul {
+    font-size: 14px;
+    color: var(--gray-700);
+    line-height: 1.6;
+  }
+  .info-card ul {
+    list-style: disc;
+    padding-left: 18px;
+  }
+
+  /* Highlight box */
+  .highlight-box {
+    background: linear-gradient(135deg, var(--blue-light), #dbeafe);
+    border-radius: 10px;
+    padding: 24px 30px;
+    border: 1px solid #bfdbfe;
+    margin: 16px 0;
+  }
+  .highlight-box h4 {
+    color: var(--blue-dark);
+    font-size: 16px;
+    margin-bottom: 8px;
+  }
+  .highlight-box p {
+    color: var(--gray-700);
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  /* Architecture diagram */
+  .arch-flow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin: 20px 0;
+  }
+  .arch-box {
+    background: var(--blue-light);
+    border: 2px solid var(--blue-accent);
+    border-radius: 10px;
+    padding: 18px 24px;
+    text-align: center;
+    min-width: 140px;
+  }
+  .arch-box.highlight {
+    background: var(--blue);
+    border-color: var(--blue-dark);
+    color: white;
+  }
+  .arch-box h5 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .arch-box p {
+    font-size: 11px;
+    opacity: 0.7;
+  }
+  .arch-arrow {
+    font-size: 24px;
+    color: var(--blue-accent);
+    font-weight: 700;
+  }
+
+  /* Table */
+  table.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  table.data-table th {
+    background: var(--blue);
+    color: white;
+    padding: 10px 16px;
+    text-align: left;
+    font-weight: 600;
+  }
+  table.data-table td {
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--gray-200);
+    color: var(--gray-700);
+  }
+  table.data-table tr:nth-child(even) td {
+    background: var(--gray-50);
+  }
+  table.data-table code {
+    font-family: 'Fira Code', monospace;
+    font-size: 12px;
+    background: var(--blue-light);
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: var(--blue-dark);
+  }
+
+  /* Footer */
+  .slide-footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 12px 60px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--gray-500);
+  }
+
+  .small-text {
+    font-size: 14px;
+    color: var(--gray-500);
+    line-height: 1.6;
+  }
+
+  h3 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--blue-dark);
+    margin-bottom: 16px;
+  }
+
+  @media print {
+    body { background: white; }
+    .slide {
+      margin: 0;
+      border-radius: 0;
+      box-shadow: none;
+      page-break-after: always;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- ==================== SLIDE 1: Title ==================== -->
+<div class="slide title-slide">
+  <h1>CAMPUS CAFE</h1>
+  <div class="tagline">A Full-Stack Point-of-Sale System for Campus Dining</div>
+  <div class="divider"></div>
+  <div class="meta">
+    NEU 5001 &mdash; Final Project<br>
+    Built with Python &bull; FastAPI &bull; React
+  </div>
+</div>
+
+<!-- ==================== SLIDE 2: Agenda ==================== -->
+<div class="slide">
+  <div class="slide-header">
+    <h2>Agenda</h2>
+  </div>
+  <div class="slide-body">
+    <ul class="bullet-list" style="max-width:700px;">
+      <li><strong>Project Overview</strong> &mdash; What we built and why</li>
+      <li><strong>System Architecture</strong> &mdash; How the pieces fit together</li>
+      <li><strong>The Main Function</strong> &mdash; CLI application flow and thought process</li>
+      <li><strong>Class Design Deep Dive</strong> &mdash; Menu, Order, Inventory, Customer, Staff</li>
+      <li><strong>Data Persistence</strong> &mdash; Excel-based tracking system</li>
+      <li><strong>Frontend Application</strong> &mdash; React web interface</li>
+      <li><strong>Live Demo &amp; Q&amp;A</strong></li>
+    </ul>
+  </div>
+  <div class="slide-footer"><span>Campus Cafe</span><span>2</span></div>
+</div>
+
+<!-- ==================== SLIDE 3: Project Overview ==================== -->
+<div class="slide">
+  <div class="slide-header">
+    <h2>Project Overview</h2>
+    <div class="subtitle">What is Campus Cafe?</div>
+  </div>
+  <div class="slide-body">
+    <p style="font-size:17px; color:var(--gray-700); margin-bottom:28px; line-height:1.7;">
+      Campus Cafe is a <strong>point-of-sale (POS) system</strong> designed for a campus dining environment.
+      It supports two user roles &mdash; <strong>customers</strong> who browse menus and place orders,
+      and <strong>staff</strong> who manage inventory and review session summaries.
+    </p>
+    <div class="card-grid">
+      <div class="info-card">
+        <h4>Customer Features</h4>
+        <ul>
+          <li>Browse menu by category</li>
+          <li>Add / remove items from cart</li>
+          <li>Daily special with automatic discount</li>
+          <li>Checkout with loyalty points</li>
+          <li>Printed receipt with tax breakdown</li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <h4>Staff Features</h4>
+        <ul>
+          <li>Secure login (ID + password)</li>
+          <li>View real-time inventory levels</li>
+          <li>Restock items</li>
+          <li>Session summary on quit (orders + revenue)</li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <h4>Dual Interface</h4>
+        <ul>
+          <li>Terminal-based CLI (main.py)</li>
+          <li>React web application (frontend)</li>
+          <li>Both interfaces share the same backend logic</li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <h4>Data Persistence</h4>
+        <ul>
+          <li>Excel files for all data storage</li>
+          <li>Orders, customers, inventory, staff</li>
+          <li>Accumulated loyalty points tracked</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer"><span>Campus Cafe</span><span>3</span></div>
+</div>
+
+<!-- ==================== SLIDE 4: Architecture ==================== -->
+<div class="slide">
+  <div class="slide-header">
+    <h2>System Architecture</h2>
+    <div class="subtitle">How the pieces fit together</div>
+  </div>
+  <div class="slide-body">
+    <div class="arch-flow" style="margin-bottom:30px;">
+      <div class="arch-box">
+        <h5>Terminal CLI</h5>
+        <p>main.py</p>
+      </div>
+      <div class="arch-arrow">&rarr;</div>
+      <div class="arch-box highlight" style="min-width:200px;">
+        <h5>Backend Classes</h5>
+        <p>Menu &bull; Order &bull; Inventory<br>Customer &bull; Staff</p>
+      </div>
+      <div class="arch-arrow">&larr;</div>
+      <div class="arch-box">
+        <h5>FastAPI Server</h5>
+        <p>app.py (REST API)</p>
+      </div>
+      <div class="arch-arrow">&larr;</div>
+      <div class="arch-box">
+        <h5>React Frontend</h5>
+        <p>Vite + React Router</p>
+      </div>
+    </div>
+    <div class="arch-flow">
+      <div style="text-align:center; width:100%;">
+        <div class="arch-arrow" style="font-size:20px;">&darr;</div>
+        <div class="arch-box" style="display:inline-block; margin-top:8px; min-width:340px;">
+          <h5>Excel Data Layer</h5>
+          <p>Menu.xlsx &bull; Orders.xlsx &bull; Inventory.xlsx &bull; Customers.xlsx &bull; Staffs.xlsx</p>
+        </div>
+      </div>
+    </div>
+    <div class="highlight-box" style="margin-top:24px;">
+      <h4>Design Principle</h4>
+      <p>The backend classes are <strong>shared</strong> between the CLI and the web app. The FastAPI server simply wraps the same Python classes that <code>main.py</code> uses, ensuring consistent behavior across both interfaces.</p>
+    </div>
+  </div>
+  <div class="slide-footer"><span>Campus Cafe</span><span>4</span></div>
+</div>
+
+<!-- ==================== SLIDE 5: Section - Main Function ==================== -->
+<div class="slide section-slide">
+  <div class="section-number">Section 1</div>
+  <h2>The Main Function</h2>
+  <p>CLI application flow and thought process</p>
+</div>
+
+<!-- ==================== SLIDE 6: Main Function - Flow ==================== -->
+<div class="slide">
+  <div class="slide-header">
+    <h2>Main Function &mdash; Application Flow</h2>
+    <div class="subtitle">main.py: the entry point that orchestrates everything</div>
+  </div>
+  <div class="slide-body" style="justify-content:flex-start; padding-top:30px;">
+    <h3>Thought Process</h3>
+    <p style="font-size:15px; color:var(--gray-700); margin-bottom:20px; line-height:1.7;">
+      We designed <code>main.py</code> as a <strong>menu-driven loop</strong>. The user sees a numbered menu, picks an option, and the program delegates to a dedicated function. This keeps each feature <strong>isolated and testable</strong>, and the main loop stays clean.
+    </p>
+    <div class="columns">
+      <div class="col">
+        <div class="code-label">main.py &mdash; entry point &amp; global state</div>
+<pre><span class="kw">from</span> backend.menu <span class="kw">import</span> MenuItem, Menu
+<span class="kw">from</span> backend.order <span class="kw">import</span> Order
+<span class="kw">from</span> backend.inventory_ShuranRyu <span class="kw">import</span> Inventory
+<span class="kw">from</span> backend.customer <span class="kw">import</span> Customer, Customers
+<span class="kw">from</span> backend.staff <span class="kw">import</span> Staff, Staffs
+
+MENU  = Menu()          <span class="cmt"># Load menu from Excel</span>
+order = Order(MENU)     <span class="cmt"># Current order (shared)</span>
+staffs = Staffs()       <span class="cmt"># Load staff credentials</span>
+session_orders = {}     <span class="cmt"># Track all orders in session</span></pre>
+      </div>
+      <div class="col">
+        <div class="code-label">main_menu() &mdash; the driving loop</div>
+<pre><span class="kw">def</span> <span class="fn">main_menu</span>():
+    <span class="kw">while</span> <span class="num">True</span>:
+        <span class="cmt"># Display options</span>
+        choice = <span class="fn">input</span>(<span class="str">"Enter your choice: "</span>)
+
+        <span class="kw">if</span>   choice == <span class="str">"1"</span>: <span class="fn">view_menu</span>()
+        <span class="kw">elif</span> choice == <span class="str">"2"</span>: <span class="fn">order_item</span>()
+        <span class="kw">elif</span> choice == <span class="str">"3"</span>: <span class="fn">delete_item</span>()
+        <span class="kw">elif</span> choice == <span class="str">"4"</span>: <span class="fn">view_cart</span>()
+        <span class="kw">elif</span> choice == <span class="str">"5"</span>: <span class="fn">checkout</span>()
+        <span class="kw">elif</span> choice == <span class="str">"s"</span>: <span class="fn">login_staff_system</span>()</pre>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer"><span>Campus Cafe</span><span>6</span></div>
+</div>
+
+<!-- ==================== SLIDE 7: Main Function - Order & Checkout ==================== -->
+<div class="slide">
+  <div class="slide-header">
+    <h2>Main Function &mdash; Ordering &amp; Checkout</h2>
+    <div class="subtitle">Input validation, stock checking, and receipt generation</div>
+  </div>
+  <div class="slide-body" style="justify-content:flex-start; padding-top:30px;">
+    <div class="columns">
+      <div class="col">
+        <div class="code-label">order_item() &mdash; with stock validation</div>
+<pre><span class="kw">def</span> <span class="fn">order_item</span>():
+    item = MENU.<span class="fn">get_item</span>(item_name)
+    <span class="cmt"># Validate quantity input (try/except)</span>
+
+    inventory = Inventory()
+    counter = <span class="num">0</span>
+    <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(num_int):
+        <span class="kw">if</span> inventory.<span class="fn">check_stock</span>(item):
+            counter += <span class="num">1</span>
+            order.<span class="fn">add_to_order</span>(item)
+            inventory.<span class="fn">deduct_stock</span>(item)
+            inventory.<span class="fn">save_to_excel</span>()
+        <span class="kw">else</span>:
+            <span class="fn">print</span>(<span class="str">"Out of stock"</span>)
+            <span class="kw">break</span></pre>
+        <div class="highlight-box" style="margin-top:16px;">
+          <p style="font-size:13px;"><strong>Key decision:</strong> We check stock <em>per unit</em> in a loop rather than checking total availability upfront. This ensures partial fulfillment &mdash; if 3 are requested but only 2 remain, the customer gets 2.</p>
+        </div>
+      </div>
+      <div class="col">
+        <div class="code-label">checkout() &mdash; receipt &amp; loyalty points</div>
+<pre><span class="kw">def</span> <span class="fn">checkout</span>():
+    subtotal = order.<span class="fn">get_total</span>()
+    total_before_tax = order.<span class="fn">get_total_after_discount</span>()
+    discount = subtotal - total_before_tax
+    tax = order.TAX_RATE * total_before_tax
+    total = total_before_tax + tax
+
+    <span class="cmt"># Loyalty points</span>
+    customers = Customers()
+    <span class="kw">if</span> customers.<span class="fn">check_customer</span>(telephone):
+        customer = customers.<span class="fn">get_customer</span>(telephone)
+        customer.<span class="fn">earn_points</span>(total)
+        customers.<span class="fn">update_customer</span>(customer)
+    <span class="kw">else</span>:
+        customer = Customer(telephone)
+        customer.<span class="fn">earn_points</span>(total)
+        customers.<span class="fn">add_customer</span>(customer)
+
+    <span class="cmt"># Print receipt, save order, track session</span>
+    order.<span class="fn">save_to_excel</span>()
+    session_orders[<span class="fn">len</span>(session_orders)] = {
+        <span class="str">"Total"</span>: total, <span class="str">"Items"</span>: <span class="fn">str</span>(order)
+    }</pre>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer"><span>Campus Cafe</span><span>7</span></div>
+</div>
+
+<!-- ==================== SLIDE 8: Section - Class Design ==================== -->
+<div class="slide section-slide">
+  <div class="section-number">Section 2</div>
+  <h2>Class Design Deep Dive</h2>
+  <p>Object-oriented design for Menu, Order, Inventory, Customer, and Staff</p>
+</div>
+
+<!-- ==================== SLIDE 9: Menu Class ==================== -->
+<div class="slide">
+  <div class="slide-header">
+    <h2>Class: Menu &amp; MenuItem</h2>
+    <div class="subtitle">backend/menu.py &mdash; Menu management with daily specials</div>
+  </div>
+  <div class="slide-body" style="justify-content:flex-start; padding-top:30px;">
+    <div class="columns">
+      <div class="col">
+        <h3>Design Decisions</h3>
+        <ul class="bullet-list">
+          <li><strong>MenuItem</strong> is a simple data class &mdash; name, price, category. Keeps things lightweight.</li>
+          <li><strong>Menu</strong> loads all items from <code>Menu.xlsx</code> on init, so data is always fresh from disk.</li>
+          <li><strong>Daily Special</strong> is randomly chosen via <code>random.choice()</code> each session, with a configurable discount rate (default 20%).</li>
+          <li><strong>Fuzzy search</strong>: <code>get_item()</code> ignores case and spaces, so "fruitsalad" matches "Fruit Salad".</li>
+        </ul>
+      </div>
+      <div class="col">
+        <div class="code-label">MenuItem &amp; Menu (key methods)</div>
+<pre><span class="kw">class</span> <span class="fn">MenuItem</span>:
+    <span class="kw">def</span> <span class="fn">__init__</span>(self, name, price, category):
+        self.name = name
+        self.price = price
+        self.category = category
+
+<span class="kw">class</span> <span class="fn">Menu</span>:
+    <span class="kw">def</span> <span class="fn">__init__</span>(self, filename=<span class="str">"Menu.xlsx"</span>,
+                 rate=<span class="num">0.2</span>):
+        self.menu = self.<span class="fn">load_from_excel</span>()
+        self.special_item = self.<span class="fn">daily_special</span>()
+        self.special_discounted_rate = rate
+
+    <span class="kw">def</span> <span class="fn">daily_special</span>(self):
+        <span class="kw">return</span> random.<span class="fn">choice</span>(self.menu)
+
+    <span class="kw">def</span> <span class="fn">get_item</span>(self, name):
+        <span class="kw">for</span> item <span class="kw">in</span> self.menu:
+            <span class="kw">if</span> item.name.<span class="fn">lower</span>().<span class="fn">replace</span>(<span class="str">" "</span>,<span class="str">""</span>) \
+               == name.<span class="fn">lower</span>().<span class="fn">replace</span>(<span class="str">" "</span>,<span class="str">""</span>):
+                <span class="kw">return</span> item
+        <span class="kw">return</span> <span class="num">None</span></pre>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer"><span>Campus Cafe</span><span>9</span></div>
+</div>
+
+<!-- ==================== SLIDE 10: Order Class ==================== -->
+<div class="slide">
+  <div class="slide-header">
+    <h2>Class: Order</h2>
+    <div class="subtitle">backend/order.py &mdash; Cart management, pricing, and tax calculation</div>
+  </div>
+  <div class="slide-body" style="justify-content:flex-start; padding-top:30px;">
+    <div class="columns">
+      <div class="col">
+        <h3>Design Decisions</h3>
+        <ul class="bullet-list">
+          <li><strong>Items as a list</strong>: We store each item instance individually (not a dict), making add/remove simple with <code>append()</code> / <code>remove()</code>.</li>
+          <li><strong>Discount logic</strong> lives in <code>get_total_after_discount()</code> &mdash; only the daily special item gets the discount applied per unit.</li>
+          <li><strong>Tax rate</strong> is a class constant (<code>0.1</code> = 10%), easy to adjust.</li>
+          <li><strong>save_to_excel()</strong> auto-increments <code>order_id</code> and appends to the Orders spreadsheet with timestamps.</li>
+        </ul>
+      </div>
+      <div class="col">
+        <div class="code-label">Order (key methods)</div>
+<pre><span class="kw">class</span> <span class="fn">Order</span>:
+    <span class="kw">def</span> <span class="fn">__init__</span>(self, menu):
+        self.items = []
+        self.menu = menu
+        self.TAX_RATE = <span class="num">0.1</span>
+
+    <span class="kw">def</span> <span class="fn">get_total_after_discount</span>(self):
+        total = <span class="num">0.0</span>
+        <span class="kw">for</span> item <span class="kw">in</span> self.items:
+            <span class="kw">if</span> item == self.menu.special_item:
+                total += item.price * \
+                  (<span class="num">1</span> - self.menu.special_discounted_rate)
+            <span class="kw">else</span>:
+                total += item.price
+        <span class="kw">return</span> total
+
+    <span class="kw">def</span> <span class="fn">get_items_num</span>(self):
+        <span class="cmt"># Returns {MenuItem: count, ...}</span>
+        item_counter = {}
+        <span class="kw">for</span> item <span class="kw">in</span> self.items:
+            <span class="kw">if</span> item <span class="kw">not in</span> item_counter:
+                item_counter[item] = <span class="num">1</span>
+            <span class="kw">else</span>:
+                item_counter[item] += <span class="num">1</span>
+        <span class="kw">return</span> item_counter</pre>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer"><span>Campus Cafe</span><span>10</span></div>
+</div>
+
+<!-- ==================== SLIDE 11: Inventory Class ==================== -->
+<div class="slide">
+  <div class="slide-header">
+    <h2>Class: Inventory</h2>
+    <div class="subtitle">backend/inventory_ShuranRyu.py &mdash; Contributed by teammate Shuran Ryu</div>
+  </div>
+  <div class="slide-body" style="justify-content:flex-start; padding-top:30px;">
+    <div class="highlight-box" style="margin-bottom:20px;">
+      <h4>Collaborative Development</h4>
+      <p>The Inventory class was written by our classmate <strong>Shuran Ryu</strong> and merged into our codebase. This demonstrates our ability to <strong>integrate external code</strong> into a cohesive system, aligning interfaces so that <code>main.py</code> and other classes interact with it seamlessly.</p>
+    </div>
+    <div class="columns">
+      <div class="col">
+        <h3>Key Methods</h3>
+        <ul class="bullet-list">
+          <li><strong>check_stock(item)</strong> &rarr; returns <code>True/False</code> &mdash; safe guard before deducting.</li>
+          <li><strong>deduct_stock(item)</strong> &mdash; decrements by 1 unit per call.</li>
+          <li><strong>restore_stock(item)</strong> &mdash; increments by 1 when an order item is deleted.</li>
+          <li><strong>restock(name, amount)</strong> &mdash; staff can bulk-add any quantity.</li>
+        </ul>
+      </div>
+      <div class="col">
+        <div class="code-label">Inventory (key methods)</div>
+<pre><span class="kw">class</span> <span class="fn">Inventory</span>:
+    <span class="kw">def</span> <span class="fn">__init__</span>(self, filename=<span class="str">"Inventory.xlsx"</span>):
+        self.stock = self.<span class="fn">load_from_excel</span>()
+        <span class="cmt"># stock = {"Americano": 5, ...}</span>
+
+    <span class="kw">def</span> <span class="fn">check_stock</span>(self, item):
+        <span class="kw">return</span> self.stock.<span class="fn">get</span>(item.name, <span class="num">0</span>) > <span class="num">0</span>
+
+    <span class="kw">def</span> <span class="fn">deduct_stock</span>(self, item):
+        <span class="kw">if</span> self.<span class="fn">check_stock</span>(item):
+            self.stock[item.name] -= <span class="num">1</span>
+
+    <span class="kw">def</span> <span class="fn">restore_stock</span>(self, item):
+        self.stock[item.name] += <span class="num">1</span>
+
+    <span class="kw">def</span> <span class="fn">restock</span>(self, item_name, amount):
+        self.stock[item_name] = \
+            self.stock.<span class="fn">get</span>(item_name, <span class="num">0</span>) + amount</pre>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer"><span>Campus Cafe</span><span>11</span></div>
+</div>
+
+<!-- ==================== SLIDE 12: Customer Class ==================== -->
+<div class="slide">
+  <div class="slide-header">
+    <h2>Class: Customer &amp; Customers</h2>
+    <div class="subtitle">backend/customer.py &mdash; Loyalty program with automatic point tracking</div>
+  </div>
+  <div class="slide-body" style="justify-content:flex-start; padding-top:30px;">
+    <div class="columns">
+      <div class="col">
+        <h3>Design Decisions</h3>
+        <ul class="bullet-list">
+          <li><strong>Auto-generated IDs</strong>: A class-level counter produces unique 9-digit IDs (e.g., <code>000000001</code>). On load, the counter syncs with the max existing ID.</li>
+          <li><strong>Phone as identifier</strong>: Customers are looked up by phone number; duplicate prevention is built in.</li>
+          <li><strong>Points policy</strong>: Earn 1 point per $5 spent. Clear, simple, and configurable.</li>
+          <li><strong>Customers class</strong> manages the collection &mdash; CRUD operations + Excel persistence.</li>
+        </ul>
+      </div>
+      <div class="col">
+        <div class="code-label">Customer (key methods)</div>
+<pre><span class="kw">class</span> <span class="fn">Customer</span>:
+    counter = <span class="num">0</span>  <span class="cmt"># Class-level auto-increment</span>
+
+    <span class="kw">def</span> <span class="fn">__init__</span>(self, telephone, name=<span class="str">""</span>,
+                 points=<span class="num">0</span>, id=<span class="num">None</span>):
+        <span class="kw">if</span> id <span class="kw">is not</span> <span class="num">None</span>:
+            self.customer_id = id
+        <span class="kw">else</span>:
+            Customer.counter += <span class="num">1</span>
+            self.customer_id = \
+                <span class="fn">str</span>(Customer.counter).<span class="fn">zfill</span>(<span class="num">9</span>)
+
+        self.telephone = telephone
+        self.points = points
+        self.earn_point_policy = <span class="num">5</span>
+
+    <span class="kw">def</span> <span class="fn">earn_points</span>(self, consuming):
+        <span class="cmt"># 1 point per $5 spent</span>
+        self.points += consuming // <span class="num">5</span></pre>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer"><span>Campus Cafe</span><span>12</span></div>
+</div>
+
+<!-- ==================== SLIDE 13: Staff Class ==================== -->
+<div class="slide">
+  <div class="slide-header">
+    <h2>Class: Staff &amp; Staffs</h2>
+    <div class="subtitle">backend/staff.py &mdash; Secure staff authentication and management</div>
+  </div>
+  <div class="slide-body" style="justify-content:flex-start; padding-top:30px;">
+    <div class="columns">
+      <div class="col">
+        <h3>Design Decisions</h3>
+        <ul class="bullet-list">
+          <li><strong>Same ID pattern</strong> as Customer &mdash; 9-digit auto-increment with class-level counter.</li>
+          <li><strong>Password-protected</strong>: Staff must enter both ID and password to access the system. In the CLI, <code>getpass</code> hides password input.</li>
+          <li><strong>Staffs collection</strong> mirrors the Customers pattern: check, get, add, delete, update + Excel I/O.</li>
+        </ul>
+        <div class="highlight-box" style="margin-top:16px;">
+          <p style="font-size:13px;"><strong>Consistent patterns:</strong> Customer and Staff follow the same architectural template &mdash; entity class + collection class + Excel persistence. This makes the codebase predictable and easy to extend.</p>
+        </div>
+      </div>
+      <div class="col">
+        <div class="code-label">Staff login flow (main.py)</div>
+<pre><span class="kw">def</span> <span class="fn">login_staff_system</span>():
+    <span class="kw">while</span> <span class="num">True</span>:
+        id = <span class="fn">input</span>(<span class="str">"Enter staff id: "</span>)
+
+        <span class="kw">if not</span> staffs.<span class="fn">check_staff</span>(id):
+            <span class="fn">print</span>(<span class="str">"Invalid input"</span>)
+            <span class="kw">continue</span>
+
+        staff = staffs.<span class="fn">get_staff</span>(id)
+        pwd = <span class="fn">getpass</span>(<span class="str">"Enter password:"</span>)
+
+        <span class="kw">if</span> pwd == staff.password:
+            <span class="fn">staff_menu</span>()
+            <span class="kw">return</span></pre>
+        <div class="code-label" style="margin-top:16px;">Session quit &mdash; summary on exit</div>
+<pre><span class="kw">def</span> <span class="fn">quit</span>():
+    <span class="kw">for</span> _, info <span class="kw">in</span> session_orders.<span class="fn">items</span>():
+        session_orders_total += info[<span class="str">"Total"</span>]
+        <span class="fn">print</span>(info[<span class="str">"Items"</span>])
+    <span class="fn">print</span>(<span class="str">f"</span>{<span class="fn">len</span>(session_orders)} orders,
+     ${session_orders_total:.2f} earned.<span class="str">"</span>)</pre>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer"><span>Campus Cafe</span><span>13</span></div>
+</div>
+
+<!-- ==================== SLIDE 14: Section - Data Persistence ==================== -->
+<div class="slide section-slide">
+  <div class="section-number">Section 3</div>
+  <h2>Data Persistence</h2>
+  <p>Excel-based tracking for orders, customers, and inventory</p>
+</div>
+
+<!-- ==================== SLIDE 15: Excel Data ==================== -->
+<div class="slide">
+  <div class="slide-header">
+    <h2>Excel Data Layer</h2>
+    <div class="subtitle">All data persisted to .xlsx files using pandas + openpyxl</div>
+  </div>
+  <div class="slide-body" style="justify-content:flex-start; padding-top:30px;">
+    <table class="data-table" style="margin-bottom:24px;">
+      <thead>
+        <tr>
+          <th>File</th>
+          <th>Purpose</th>
+          <th>Columns</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>Menu.xlsx</code></td>
+          <td>Menu items catalog</td>
+          <td><code>item_name</code>, <code>price</code>, <code>category</code></td>
+        </tr>
+        <tr>
+          <td><code>Orders.xlsx</code></td>
+          <td>Complete order history</td>
+          <td><code>order_id</code>, <code>total</code>, <code>date</code>, <code>time</code>, <code>[item quantities]</code></td>
+        </tr>
+        <tr>
+          <td><code>Inventory.xlsx</code></td>
+          <td>Current stock levels</td>
+          <td><code>Item Name</code>, <code>Stock Numbers</code></td>
+        </tr>
+        <tr>
+          <td><code>Customers.xlsx</code></td>
+          <td>Customer profiles &amp; loyalty points</td>
+          <td><code>customer_id</code>, <code>name</code>, <code>telephone</code>, <code>points</code></td>
+        </tr>
+        <tr>
+          <td><code>Staffs.xlsx</code></td>
+          <td>Staff credentials</td>
+          <td><code>staff_id</code>, <code>name</code>, <code>telephone</code>, <code>password</code></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="highlight-box">
+      <h4>Special Feature: Loyalty Points Tracking</h4>
+      <p>Every checkout automatically identifies returning customers by phone number, accumulates their loyalty points in <code>Customers.xlsx</code>, and displays the updated balance on the receipt. New customers are auto-registered on first purchase with a unique 9-digit ID. All data persists across sessions.</p>
+    </div>
+  </div>
+  <div class="slide-footer"><span>Campus Cafe</span><span>15</span></div>
+</div>
+
+<!-- ==================== SLIDE 16: Section - Frontend ==================== -->
+<div class="slide section-slide">
+  <div class="section-number">Section 4</div>
+  <h2>Frontend Application</h2>
+  <p>A React web interface built on top of the same backend</p>
+</div>
+
+<!-- ==================== SLIDE 17: Frontend Overview ==================== -->
+<div class="slide">
+  <div class="slide-header">
+    <h2>React Frontend</h2>
+    <div class="subtitle">Modern web interface for the Campus Cafe POS</div>
+  </div>
+  <div class="slide-body" style="justify-content:flex-start; padding-top:30px;">
+    <p style="font-size:16px; color:var(--gray-700); margin-bottom:24px; line-height:1.7;">
+      To make our project more accessible and visually engaging, we built a <strong>full web application</strong> using React. A FastAPI server (<code>app.py</code>) wraps the exact same backend classes, exposing them as REST API endpoints.
+    </p>
+    <div class="card-grid three">
+      <div class="info-card">
+        <h4>Tech Stack</h4>
+        <ul>
+          <li>React 18 + Vite</li>
+          <li>React Router v6</li>
+          <li>FastAPI (Python)</li>
+          <li>Vite proxy for API calls</li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <h4>Customer Pages</h4>
+        <ul>
+          <li>Home &mdash; landing page</li>
+          <li>Menu &mdash; browse by category</li>
+          <li>Cart &mdash; review &amp; edit</li>
+          <li>Checkout &mdash; pay &amp; receipt</li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <h4>Staff Pages</h4>
+        <ul>
+          <li>Staff Login &mdash; secure auth</li>
+          <li>Inventory Management</li>
+          <li>Restock items</li>
+          <li>Session summary on quit</li>
+        </ul>
+      </div>
+    </div>
+    <div class="highlight-box" style="margin-top:24px;">
+      <h4>Same Backend, Two Interfaces</h4>
+      <p>Both the terminal CLI and the React frontend call the same Python classes. The web app adds a <strong>visual layer</strong> on top without duplicating any business logic. This demonstrates clean <strong>separation of concerns</strong> &mdash; the backend handles data and rules, while the frontend handles presentation.</p>
+    </div>
+  </div>
+  <div class="slide-footer"><span>Campus Cafe</span><span>17</span></div>
+</div>
+
+<!-- ==================== SLIDE 18: Frontend - Key Screens ==================== -->
+<div class="slide">
+  <div class="slide-header">
+    <h2>Frontend &mdash; Key Features</h2>
+    <div class="subtitle">Interactive UI with real-time stock validation</div>
+  </div>
+  <div class="slide-body" style="justify-content:flex-start; padding-top:30px;">
+    <div class="card-grid">
+      <div class="info-card">
+        <h4>Menu Page</h4>
+        <ul>
+          <li>4 category tabs (Salads, Drinks, Desserts, Sandwiches)</li>
+          <li>Daily special banner with discount badge</li>
+          <li>Inline quantity controls (+/-) with stock validation</li>
+          <li>Toast notifications when stock is insufficient</li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <h4>Cart Page</h4>
+        <ul>
+          <li>Editable quantities (type or +/- buttons)</li>
+          <li>Real-time price summary with tax &amp; discount</li>
+          <li>Stock validation on quantity increase</li>
+          <li>Clear cart functionality</li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <h4>Checkout &amp; Receipt</h4>
+        <ul>
+          <li>Phone number entry for loyalty points</li>
+          <li>Full receipt with itemized breakdown</li>
+          <li>Auto-redirect to home after 8 seconds</li>
+          <li>Automatic customer registration</li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <h4>Staff Dashboard</h4>
+        <ul>
+          <li>Inventory table with low-stock highlighting</li>
+          <li>Restock form with dropdown item selection</li>
+          <li>Navbar "Quit" button triggers session summary</li>
+          <li>Modal shows all orders with item details + revenue</li>
+        </ul>
+      </div>
+    </div>
+    <div style="margin-top:24px; text-align:center;">
+      <p class="small-text"><em>Live demo available &mdash; run <code>python app.py</code> + <code>npm run dev</code> to see the full application.</em></p>
+    </div>
+  </div>
+  <div class="slide-footer"><span>Campus Cafe</span><span>18</span></div>
+</div>
+
+<!-- ==================== SLIDE 19: Summary ==================== -->
+<div class="slide">
+  <div class="slide-header">
+    <h2>Summary &amp; Key Takeaways</h2>
+  </div>
+  <div class="slide-body">
+    <div class="card-grid" style="margin-bottom:30px;">
+      <div class="info-card">
+        <h4>Object-Oriented Design</h4>
+        <p>5 backend classes with clear responsibilities. Entity + Collection pattern for Customer and Staff. Consistent Excel I/O interface across all classes.</p>
+      </div>
+      <div class="info-card">
+        <h4>Collaborative Development</h4>
+        <p>Integrated a classmate's Inventory class seamlessly. Demonstrates real-world teamwork and code merging skills.</p>
+      </div>
+      <div class="info-card">
+        <h4>Full-Stack Capability</h4>
+        <p>Terminal CLI + React web app sharing the same backend. FastAPI bridges Python classes to a modern web interface.</p>
+      </div>
+      <div class="info-card">
+        <h4>Data Persistence</h4>
+        <p>Excel-based storage for orders, customers, inventory, and staff. Loyalty points accumulate across sessions. Complete order history with timestamps.</p>
+      </div>
+    </div>
+    <div class="highlight-box">
+      <h4>What We Learned</h4>
+      <p>This project reinforced <strong>OOP principles</strong> (encapsulation, separation of concerns), <strong>data persistence</strong> with pandas, <strong>input validation</strong> patterns, and how to extend a CLI application into a <strong>full-stack web application</strong> without rewriting business logic.</p>
+    </div>
+  </div>
+  <div class="slide-footer"><span>Campus Cafe</span><span>19</span></div>
+</div>
+
+<!-- ==================== SLIDE 20: Thank You ==================== -->
+<div class="slide title-slide">
+  <h1>Thank You</h1>
+  <div class="tagline">Questions &amp; Live Demo</div>
+  <div class="divider"></div>
+  <div class="meta">
+    Campus Cafe &mdash; NEU 5001 Final Project<br>
+    Python &bull; FastAPI &bull; React &bull; Excel
+  </div>
+</div>
+
+</body>
+</html>
